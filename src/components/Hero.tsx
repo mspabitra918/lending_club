@@ -143,7 +143,7 @@ export function Hero() {
                     </span>
                   </div>
                   <div className="h-px bg-gray-200 my-2" />
-                  <div className="flex items-center gap-2 text-success text-sm font-medium">
+                  <div className="flex items-center justify-center gap-2 text-success text-sm font-medium ">
                     <svg
                       className="w-5 h-5"
                       fill="currentColor"
