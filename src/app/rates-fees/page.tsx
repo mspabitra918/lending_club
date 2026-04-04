@@ -9,24 +9,24 @@ export default function RatesFeesPage() {
   const rateDetails = [
     {
       title: "Personal Loans",
-      apr: "5.99% – 24.99%",
-      amounts: "$2,000 – $50,000",
+      apr: "10%",
+      amounts: "$2,000 – $10,000",
       terms: "24 – 60 months",
-      origination: "1% – 6%",
+      origination: "0%",
     },
     {
       title: "Debt Consolidation",
-      apr: "6.49% – 22.99%",
-      amounts: "$5,000 – $50,000",
-      terms: "36 – 60 months",
-      origination: "1% – 5%",
+      apr: "10%",
+      amounts: "$5,000 – $10,000",
+      terms: "24 – 60 months",
+      origination: "0%",
     },
     {
       title: "Home Improvement",
-      apr: "5.99% – 19.99%",
-      amounts: "$5,000 – $50,000",
-      terms: "36 – 60 months",
-      origination: "1% – 5%",
+      apr: "10%",
+      amounts: "$5,000 – $10,000",
+      terms: "24 – 60 months",
+      origination: "0%",
     },
   ];
 
@@ -40,7 +40,7 @@ export default function RatesFeesPage() {
     { label: "Returned Payment Fee", value: "$15" },
     {
       label: "Origination Fee",
-      value: "1% – 6% (deducted from loan proceeds)",
+      value: "0% (deducted from loan proceeds)",
     },
     { label: "Check Processing Fee", value: "$7 per check payment" },
   ];
@@ -188,7 +188,7 @@ export default function RatesFeesPage() {
                   <strong className="text-dark">Important:</strong> The
                   origination fee is deducted from your loan proceeds before
                   disbursement. For example, if you take a $10,000 loan with a
-                  3% origination fee, you&apos;ll receive $9,700. There are
+                  0% origination fee, you&apos;ll receive $10,000. There are
                   never any prepayment penalties — pay off your loan early at
                   any time.
                 </p>

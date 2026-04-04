@@ -131,11 +131,7 @@ export default function StepBanking({
                   ? "border-error"
                   : "border-surface-dark focus:border-primary"
               } ${lookingUp ? "pr-10" : ""}`}
-              placeholder={
-                lookingUp
-                  ? "Looking up..."
-                  : "Bank name (auto-filled from routing number)"
-              }
+              placeholder={lookingUp ? "Looking up..." : "Bank name ....."}
               readOnly={lookingUp}
             />
             {lookingUp && (
@@ -144,7 +140,7 @@ export default function StepBanking({
               </div>
             )}
           </div>
-          {data.bankName && !lookingUp && !lookupError && (
+          {/* {data.bankName && !lookingUp && !lookupError && (
             <div className="flex items-center gap-1.5 mt-1.5">
               <svg
                 className="w-3.5 h-3.5 text-success"
@@ -159,7 +155,7 @@ export default function StepBanking({
               </svg>
               <span className="text-xs text-success">Bank verified</span>
             </div>
-          )}
+          )} */}
           {lookupError && (
             <p className="text-warning text-xs mt-1">{lookupError}</p>
           )}

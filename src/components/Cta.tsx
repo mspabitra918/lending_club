@@ -31,7 +31,7 @@ export function CTABanner() {
           </svg>
         </Link>
         <p className="text-white/60 text-sm mt-4">
-          No hidden fees &bull; Rates from 5.99% APR &bull; Funding in 24 hours
+          No hidden fees &bull; Rates from 10% APR &bull; Funding in 24 hours
         </p>
       </div>
     </section>

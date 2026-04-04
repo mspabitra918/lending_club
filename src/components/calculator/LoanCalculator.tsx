@@ -2,9 +2,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 export function LoanCalculator() {
-  const [amount, setAmount] = useState<number>(10000);
-  const [term, setTerm] = useState<number>(36);
-  const rate = 0.0699;
+  const [amount, setAmount] = useState<number>(2000);
+  const [term, setTerm] = useState<number>(24);
+  const rate = 0.1;
 
   const monthlyRate = rate / 12;
   const monthlyPayment =
@@ -45,7 +45,7 @@ export function LoanCalculator() {
                   <input
                     type="range"
                     min={2000}
-                    max={50000}
+                    max={10000}
                     step={500}
                     value={amount}
                     onChange={(e) => setAmount(Number(e.target.value))}
@@ -53,7 +53,7 @@ export function LoanCalculator() {
                   />
                   <div className="flex justify-between text-xs text-gray-400 mt-1">
                     <span>$2,000</span>
-                    <span>$50,000</span>
+                    <span>$10,000</span>
                   </div>
                 </div>
 

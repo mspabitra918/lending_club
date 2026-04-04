@@ -26,7 +26,7 @@ export function FAQ() {
     },
     {
       q: "What interest rates do you offer?",
-      a: "Our rates start as low as 5.99% APR depending on your credit profile, income, and other factors. All rates are fixed for the life of the loan.",
+      a: "Our rates start as low as 10% APR depending on your credit profile, income, and other factors. All rates are fixed for the life of the loan.",
     },
   ];
 

@@ -93,7 +93,7 @@ export default function DirectLenderDisclosurePage() {
                     {LOAN_LIMITS.maxTerm} months
                   </li>
                   <li>Loan type: Fixed-rate unsecured personal loans</li>
-                  <li>Origination fee: 1% to 6% of loan amount</li>
+                  <li>Origination fee: 0% of loan amount</li>
                   <li>No prepayment penalties</li>
                 </ul>
               </div>

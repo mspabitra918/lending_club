@@ -27,7 +27,7 @@ export function Hero() {
             <p className="text-lg text-white/80 max-w-lg mb-8 leading-relaxed">
               Get funded in as little as 24 hours with competitive rates,
               transparent terms, and no hidden fees. Loans from{" "}
-              <strong className="text-white">$2,000 to $50,000</strong>.
+              <strong className="text-white">$2,000 to $10,000</strong>.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
@@ -124,13 +124,13 @@ export function Hero() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-500">Loan Amount</p>
-                    <p className="text-2xl font-bold text-dark">$15,000</p>
+                    <p className="text-2xl font-bold text-dark">$10,000</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Interest Rate</span>
-                    <span className="font-semibold text-dark">6.99% APR</span>
+                    <span className="font-semibold text-dark">10% APR</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Term</span>
@@ -139,7 +139,7 @@ export function Hero() {
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-500">Monthly Payment</span>
                     <span className="font-semibold text-primary text-lg">
-                      $463/mo
+                      $322.67/mo
                     </span>
                   </div>
                   <div className="h-px bg-gray-200 my-2" />

@@ -31,11 +31,11 @@ export default function FAQPage() {
       faqs: [
         {
           q: "What loan amounts are available?",
-          a: "We offer personal loans ranging from $2,000 to $50,000. The amount you qualify for depends on your credit profile, income, and other financial factors.",
+          a: "We offer personal loans ranging from $2,000 to $10,000. The amount you qualify for depends on your credit profile, income, and other financial factors.",
         },
         {
           q: "What interest rates do you offer?",
-          a: "Our rates start as low as 5.99% APR depending on your credit profile, income, and other factors. All rates are fixed for the life of the loan — your monthly payment will never change.",
+          a: "Our rates start as low as 10% APR depending on your credit profile, income, and other factors. All rates are fixed for the life of the loan — your monthly payment will never change.",
         },
         {
           q: "What can I use the loan for?",
@@ -77,7 +77,7 @@ export default function FAQPage() {
         },
         {
           q: "Are there any upfront fees?",
-          a: "No. There are no application fees or upfront costs. The only fee is an origination fee (1%–6%) which is deducted from your loan proceeds, not paid upfront.",
+          a: "No. There are no application fees or upfront costs. The only fee is an origination fee (0%) which is deducted from your loan proceeds, not paid upfront.",
         },
       ],
     },
