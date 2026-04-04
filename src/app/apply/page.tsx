@@ -1,0 +1,69 @@
+// "use client";
+
+// import { useState, useRef, Suspense } from "react";
+// import { useSearchParams } from "next/navigation";
+
+// import Navbar from "@/components/layout/Navbar";
+// import Footer from "@/components/layout/Footer";
+// import { ApplyFormContent } from "@/components/Form/ApplyFormContent";
+
+// export default function ApplyPage() {
+//   return (
+//     <>
+//       <Navbar />
+//       <main className="pt-24 bg-gray-50 min-h-screen">
+//         <Suspense
+//           fallback={
+//             <div className="min-h-[60vh] flex items-center justify-center">
+//               <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
+//             </div>
+//           }
+//         >
+//           <ApplyFormContent />
+//         </Suspense>
+//       </main>
+//       <Footer />
+//     </>
+//   );
+// }
+
+import ApplicationWizard from "@/components/forms/ApplicationWizard";
+import Footer from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import type { Metadata } from "next";
+// import ApplicationWizard from "@/components/forms/ApplicationWizard";
+
+export const metadata: Metadata = {
+  title: "Apply for a Personal Loan",
+  description:
+    "Apply for a personal loan from Lending Club in minutes. Competitive rates, fast approval, and direct funding. Check your rate with no credit impact.",
+  alternates: { canonical: "/apply" },
+};
+
+export default function ApplyPage() {
+  return (
+    <>
+      <Navbar />
+      <main className="pt-14">
+        <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-10 sm:py-14">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-3xl sm:text-4xl font-bold">
+              Apply for a Personal Loan
+            </h1>
+            <p className="mt-3 text-white/80 max-w-xl mx-auto">
+              Complete the form below to check your rate. It only takes a few
+              minutes and won&apos;t affect your credit score.
+            </p>
+          </div>
+        </section>
+
+        <section className="py-8 sm:py-12">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ApplicationWizard />
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}
