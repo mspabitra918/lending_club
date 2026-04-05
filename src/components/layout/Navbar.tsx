@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,28 +19,39 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled || pathname.startsWith("/apply")
-          ? "bg-white shadow-lg py-2"
-          : "bg-hero-gradient py-4"
-      }`}
+      // className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
+      //   ${
+      //   scrolled || pathname.startsWith("/apply")
+      //     ? "bg-white shadow-lg py-2"
+      //     : "bg-hero-gradient py-4"
+      // }
+      // `}
+
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 
+        bg-white shadow-lg}
+      `}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">L</span>
+            <div className="w-40 h-10 flex items-center justify-center">
+              <Image
+                src="/lendingclubLogo.svg"
+                alt="Lending Club Logo"
+                width={180}
+                height={40}
+                className="object-contain"
+              />
             </div>
+
             <span
               className={`text-xl font-bold transition-colors ${
                 scrolled || pathname.startsWith("/apply")
                   ? "text-primary-dark"
                   : "text-white"
               }`}
-            >
-              Lending Club
-            </span>
+            ></span>
           </Link>
 
           {/* Desktop Nav */}
@@ -54,11 +66,12 @@ export default function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`text-sm font-semibold transition-colors ${
-                  scrolled || pathname.startsWith("/apply")
-                    ? "text-gray-700"
-                    : "text-white/90"
-                }`}
+                // className={`text-sm font-semibold transition-colors ${
+                //   scrolled || pathname.startsWith("/apply")
+                //     ? "text-gray-700"
+                //     : "text-white/90"
+                // }`}
+                className={`text-sm font-semibold transition-colors text-[#123b5e]`}
               >
                 {item.label}
               </Link>
@@ -74,9 +87,10 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? "text-gray-700" : "text-white"
-            }`}
+            // className={`md:hidden p-2 rounded-lg transition-colors ${
+            //   scrolled ? "text-gray-700" : "text-white"
+            // }`}
+            className={`md:hidden p-2 rounded-lg transition-colors ext-[#123b5e]`}
             aria-label="Toggle menu"
           >
             <svg

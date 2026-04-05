@@ -54,7 +54,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold">Phone</p>
-                    <p className="text-white/70 text-sm">(800) 555-0199</p>
+                    <p className="text-white/70 text-sm">(747) 200-5228</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -76,7 +76,7 @@ export function Contact() {
                   <div>
                     <p className="font-semibold">Working Hours</p>
                     <p className="text-white/70 text-sm">
-                      Mon - Fri, 8 AM - 6 PM EST
+                      Mon–Fri: 8 AM – 5 PM PST
                     </p>
                   </div>
                 </div>
