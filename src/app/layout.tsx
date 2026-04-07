@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/logo.svg" />
         <link
           href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
           rel="stylesheet"

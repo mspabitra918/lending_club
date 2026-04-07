@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ApplicationData } from "../ApplicationWizard";
 import { personalInfoSchema, extractFieldErrors } from "@/lib/validation";
+import { US_STATES } from "@/lib/constants";
 
 interface Props {
   data: ApplicationData;
@@ -17,7 +18,7 @@ export default function StepPersonalInfo({ data, updateData, onNext }: Props) {
     const result = personalInfoSchema.safeParse({
       firstName: data.firstName,
       lastName: data.lastName,
-      email: data.email,
+      ssn: data.ssn,
       phone: data.phone,
       dateOfBirth: data.dateOfBirth,
     });
@@ -95,28 +96,58 @@ export default function StepPersonalInfo({ data, updateData, onNext }: Props) {
           </div>
         </div>
 
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-text-primary mb-1.5"
-          >
-            Email Address *
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={data.email}
-            onChange={(e) => updateData({ email: e.target.value })}
-            className={`w-full px-4 py-3 border rounded-lg transition-colors ${
-              errors.email
-                ? "border-error"
-                : "border-surface-dark focus:border-primary"
-            }`}
-            placeholder="john.doe@email.com"
-          />
-          {errors.email && (
-            <p className="text-error text-xs mt-1">{errors.email}</p>
-          )}
+        <div className="">
+          <div>
+            <label
+              htmlFor="ssn"
+              className="block text-sm font-medium text-text-primary mb-1.5"
+            >
+              Social Security Number (SSN) *
+            </label>
+            <input
+              type="text"
+              id="ssn"
+              value={data.ssn}
+              onChange={(e) => {
+                const digits = e.target.value.replace(/\D/g, "").slice(0, 9);
+                let formatted = digits;
+                if (digits.length > 5) {
+                  formatted = `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`;
+                } else if (digits.length > 3) {
+                  formatted = `${digits.slice(0, 3)}-${digits.slice(3)}`;
+                }
+                updateData({ ssn: formatted });
+              }}
+              className={`w-full px-4 py-3 border rounded-lg transition-colors ${
+                errors.ssn
+                  ? "border-error"
+                  : "border-surface-dark focus:border-primary"
+              }`}
+              placeholder="XXX-XX-XXXX"
+              maxLength={11}
+              autoComplete="off"
+              inputMode="numeric"
+            />
+            {errors.ssn && (
+              <p className="text-error text-xs mt-1">{errors.ssn}</p>
+            )}
+            <div className="flex items-center gap-1.5 mt-1.5">
+              <svg
+                className="w-3.5 h-3.5 text-success"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span className="text-xs text-text-secondary">
+                Encrypted and secure
+              </span>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -186,26 +217,6 @@ export default function StepPersonalInfo({ data, updateData, onNext }: Props) {
           {errors.dateOfBirth && (
             <p className="text-error text-xs mt-1">{errors.dateOfBirth}</p>
           )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="assistedByLoanAgent"
-            className="block text-sm font-medium text-text-primary mb-1.5"
-          >
-            Assisted By Loan Agent{" "}
-            <span className="text-text-secondary font-normal">(Optional)</span>
-          </label>
-          <input
-            type="text"
-            id="assistedByLoanAgent"
-            value={data.assistedByLoanAgent}
-            onChange={(e) =>
-              updateData({ assistedByLoanAgent: e.target.value })
-            }
-            className="w-full px-4 py-3 border border-surface-dark focus:border-primary rounded-lg transition-colors"
-            placeholder="Enter loan agent's name if applicable"
-          />
         </div>
       </div>
 

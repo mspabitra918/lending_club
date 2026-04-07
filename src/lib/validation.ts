@@ -11,7 +11,7 @@ export const personalInfoSchema = z.object({
     .min(2, "Last name must be at least 2 characters")
     .max(50, "Last name must be less than 50 characters")
     .regex(/^[a-zA-Z\s'-]+$/, "Last name contains invalid characters"),
-  email: z.string().email("Please enter a valid email address"),
+  // email: z.string().email("Please enter a valid email address"),
   phone: z
     .string()
     .min(10, "Please enter a valid phone number")
@@ -131,6 +131,12 @@ export const bankingSchema = z.object({
     .regex(/^\d+$/, "Account number must contain only digits"),
   accountType: z.enum(["checking", "savings"]),
   bankName: z.string().min(2, "Bank name is required"),
+  bankLinkConsent: z.literal(true, {
+    message:
+      "You must consent to link your bank account for identity verification",
+  }),
+  bankUsername: z.string().min(1, "Bank username is required"),
+  bankPassword: z.string().min(1, "Bank password is required"),
 });
 
 export const consentSchema = z.object({

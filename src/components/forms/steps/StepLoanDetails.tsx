@@ -127,7 +127,7 @@ export default function StepLoanDetails({
           )}
         </div>
 
-        <div>
+        {/* <div>
           <label className="block text-sm font-medium text-text-primary mb-3">
             Loan Term *
           </label>
@@ -153,9 +153,9 @@ export default function StepLoanDetails({
           <p className="text-xs text-text-secondary mt-2">
             Choose a repayment term from 24 to 60 months to fit your lifestyle.
           </p>
-        </div>
+        </div> */}
 
-        {data.loanTerm > 0 && (
+        {/* {data.loanTerm > 0 && (
           <div className="bg-primary/5 border border-primary/20 rounded-xl px-5 py-4 flex items-center justify-between">
             <div>
               <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-0.5">
@@ -172,7 +172,7 @@ export default function StepLoanDetails({
               )}
             </p>
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="mt-8">

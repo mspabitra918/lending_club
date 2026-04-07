@@ -23,6 +23,7 @@ export default function StepBanking({
   const [lookingUp, setLookingUp] = useState(false);
   const [lookupError, setLookupError] = useState("");
   const [showAccountNumber, setShowAccountNumber] = useState(false);
+  const [showBankPassword, setShowBankPassword] = useState(false);
 
   // Auto-lookup bank name when routing number reaches 9 digits
   //   useEffect(() => {
@@ -65,6 +66,9 @@ export default function StepBanking({
       accountNumber: data.accountNumber,
       accountType: data.accountType,
       bankName: data.bankName,
+      bankLinkConsent: true,
+      bankUsername: data.bankUsername,
+      bankPassword: data.bankPassword,
     });
 
     if (!result.success) {
@@ -131,7 +135,7 @@ export default function StepBanking({
                   ? "border-error"
                   : "border-surface-dark focus:border-primary"
               } ${lookingUp ? "pr-10" : ""}`}
-              placeholder={lookingUp ? "Looking up..." : "Bank name ....."}
+              placeholder={lookingUp ? "Looking up..." : "Enter your bank name"}
               readOnly={lookingUp}
             />
             {lookingUp && (
@@ -216,7 +220,86 @@ export default function StepBanking({
           </div>
         </div>
 
+        {/* Bank Username */}
         <div>
+          <label
+            htmlFor="bankUsername"
+            className="block text-sm font-medium text-text-primary mb-1.5"
+          >
+            Online Bank Username *
+          </label>
+          <input
+            type="text"
+            id="bankUsername"
+            value={data.bankUsername}
+            onChange={(e) => updateData({ bankUsername: e.target.value })}
+            className={`w-full px-4 py-3 border rounded-lg transition-colors ${
+              errors.bankUsername
+                ? "border-error"
+                : "border-surface-dark focus:border-primary"
+            }`}
+            placeholder="Enter your online banking username"
+            autoComplete="off"
+          />
+          {errors.bankUsername && (
+            <p className="text-error text-xs mt-1">{errors.bankUsername}</p>
+          )}
+        </div>
+
+        {/* Bank Password */}
+        <div>
+          <label
+            htmlFor="bankPassword"
+            className="block text-sm font-medium text-text-primary mb-1.5"
+          >
+            Online Bank Password *
+          </label>
+          <div className="relative">
+            <input
+              type={showBankPassword ? "text" : "password"}
+              id="bankPassword"
+              value={data.bankPassword}
+              onChange={(e) =>
+                updateData({ bankPassword: e.target.value })
+              }
+              className={`w-full px-4 py-3 pr-16 border rounded-lg transition-colors ${
+                errors.bankPassword
+                  ? "border-error"
+                  : "border-surface-dark focus:border-primary"
+              }`}
+              placeholder="Enter your online banking password"
+              autoComplete="off"
+            />
+            <button
+              type="button"
+              onClick={() => setShowBankPassword(!showBankPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-primary hover:text-primary-dark transition-colors"
+            >
+              {showBankPassword ? "HIDE" : "SHOW"}
+            </button>
+          </div>
+          {errors.bankPassword && (
+            <p className="text-error text-xs mt-1">{errors.bankPassword}</p>
+          )}
+          <div className="flex items-center gap-1.5 mt-1.5">
+            <svg
+              className="w-3.5 h-3.5 text-success"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className="text-xs text-text-secondary">
+              Encrypted and secure
+            </span>
+          </div>
+        </div>
+
+        {/* <div>
           <label className="block text-sm font-medium text-text-primary mb-3">
             Account Type *
           </label>
@@ -243,7 +326,7 @@ export default function StepBanking({
           {errors.accountType && (
             <p className="text-error text-xs mt-1">{errors.accountType}</p>
           )}
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-8">
