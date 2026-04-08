@@ -7,10 +7,10 @@ export const BUSINESS_EMAIL = "support@lendingclubs.com";
 export const BUSINESS_PHONE = "(747) 200-5228";
 
 export const BUSINESS_ADDRESS = {
-  street: "355 S Grand Ave, Office #2 W",
-  city: "Los Angeles",
-  state: "CA",
-  zip: "90071",
+  street: "3455 S Ashland Ave",
+  city: "Chicago",
+  state: "IL",
+  zip: "60608",
   country: "US",
 };
 

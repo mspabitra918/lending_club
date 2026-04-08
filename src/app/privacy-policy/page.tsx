@@ -228,7 +228,7 @@ export default function PrivacyPolicyPage() {
                   <br />
                   {SITE_NAME}
                   <br />
-                  355 S Grand Ave, Office #2 W, Los Angeles, CA 90071
+                  3455 S Ashland Ave, Chicago, IL 60608
                 </p>
               </div>
             </div>
