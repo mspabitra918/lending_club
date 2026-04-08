@@ -414,7 +414,7 @@ export function ApplyFormContent() {
         {status === "error" && (
           <div className="mt-4 bg-red-50 text-red-600 p-4 rounded-xl text-sm text-center">
             Something went wrong. Please try again or contact us directly at
-            support@lendingclub.com
+            support@lendingclubs.pro
           </div>
         )}
       </form>

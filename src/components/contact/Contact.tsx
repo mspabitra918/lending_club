@@ -32,7 +32,7 @@ export function Contact() {
                   <div>
                     <p className="font-semibold">Email</p>
                     <p className="text-white/70 text-sm">
-                      support@lendingclub.com
+                      support@lendingclubs.pro
                     </p>
                   </div>
                 </div>
@@ -54,7 +54,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="font-semibold">Phone</p>
-                    <p className="text-white/70 text-sm">(747) 200-5228</p>
+                    <p className="text-white/70 text-sm">(773) 236-7585</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

