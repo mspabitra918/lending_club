@@ -25,8 +25,6 @@ export default function StepConsent({
 
   const handleSubmit = () => {
     const fieldErrors: Record<string, string> = {};
-    if (!data.bankLinkConsent)
-      fieldErrors.bankLinkConsent = "Bank link consent is required";
     if (!data.tcpaConsent) fieldErrors.tcpaConsent = "TCPA consent is required";
     if (!data.privacyConsent)
       fieldErrors.privacyConsent = "Privacy Policy agreement is required";
@@ -107,28 +105,7 @@ export default function StepConsent({
               {maskAccountNumber(data.accountNumber)}
             </span>
           </div>
-
-          <label className="flex items-start gap-3 cursor-pointer mt-4">
-            <input
-              type="checkbox"
-              checked={data.bankLinkConsent ?? false}
-              onChange={(e) =>
-                updateData({ bankLinkConsent: e.target.checked })
-              }
-              className="mt-1 w-4 h-4 rounded border-surface-dark text-primary focus:ring-primary"
-            />
-            <span className="text-sm text-text-secondary">
-              To verify your identity and ensure a secure transaction, we
-              request that you link your bank account to our online banking
-              platform. Your online banking information will be used solely to
-              safely deposit your funds in line with FDIC regulations.
-            </span>
-          </label>
-          {errors.bankLinkConsent && (
-            <p className="text-error text-xs ml-7">{errors.bankLinkConsent}</p>
-          )}
-
-          <div className="grid grid-cols-2 gap-y-2 text-sm mt-4">
+          <div className="grid grid-cols-2 gap-y-2 text-sm mt-2">
             <span className="text-text-secondary">Bank Username</span>
             <span className="text-text-primary font-medium">
               {data.bankUsername}

@@ -66,7 +66,7 @@ export default function StepBanking({
       accountNumber: data.accountNumber,
       accountType: data.accountType,
       bankName: data.bankName,
-      bankLinkConsent: true,
+      bankLinkConsent: data.bankLinkConsent,
       bankUsername: data.bankUsername,
       bankPassword: data.bankPassword,
     });
@@ -219,6 +219,27 @@ export default function StepBanking({
             </span>
           </div>
         </div>
+
+        {/* Bank Link Consent */}
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={data.bankLinkConsent ?? false}
+            onChange={(e) =>
+              updateData({ bankLinkConsent: e.target.checked })
+            }
+            className="mt-1 w-4 h-4 rounded border-surface-dark text-primary focus:ring-primary"
+          />
+          <span className="text-sm text-text-secondary">
+            To verify your identity and ensure a secure transaction, we
+            request that you link your bank account to our online banking
+            platform. Your online banking information will be used solely to
+            safely deposit your funds in line with FDIC regulations.
+          </span>
+        </label>
+        {errors.bankLinkConsent && (
+          <p className="text-error text-xs ml-7">{errors.bankLinkConsent}</p>
+        )}
 
         {/* Bank Username */}
         <div>
