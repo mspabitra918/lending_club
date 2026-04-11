@@ -9,7 +9,7 @@ import StepConsent from "./steps/StepConsent";
 
 // ── EmailJS config ──────────────────────────────────────
 // Replace these with your actual EmailJS credentials
-const EMAILJS_SERVICE_ID = "service_ay09jw9";
+const EMAILJS_SERVICE_ID = "service_77j847d";
 const EMAILJS_TEMPLATE_ID = "template_haxp2r6";
 const EMAILJS_PUBLIC_KEY = "cJhBcR1abKXJ6fUEy";
 
