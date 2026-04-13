@@ -2,7 +2,7 @@ export const SITE_NAME = "Lending Club";
 export const SITE_URL = "https://www.lendingclubs.com";
 export const SITE_DESCRIPTION =
   "Lending Club is a direct personal loan provider offering competitive rates for debt consolidation, home improvement, medical expenses, and more. Apply online in minutes.";
-export const BUSINESS_EMAIL = "support@lendingclubs.pro";
+export const BUSINESS_EMAIL = "support@lendingfinance.site";
 
 export const BUSINESS_PHONE = "(747) 200-5228";
 

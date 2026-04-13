@@ -32,7 +32,7 @@ export function Contact() {
                   <div>
                     <p className="font-semibold">Email</p>
                     <p className="text-white/70 text-sm">
-                      support@lendingclubs.pro
+                      support@lendingfinance.site
                     </p>
                   </div>
                 </div>
