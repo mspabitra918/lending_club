@@ -4,12 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { LoanApplication } from "@/types";
 
-export async function generateStaticParams() {
-  // Since this is a dynamic admin page that fetches from API,
-  // we return an empty array to allow dynamic generation at runtime
-  return [];
-}
-
 export default function ApplicationDetails() {
   const { id } = useParams();
   const router = useRouter();
