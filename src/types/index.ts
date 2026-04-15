@@ -1,8 +1,21 @@
 export interface LoanApplication {
   id: string;
   // Personal Info
-  firstName: string;
-  lastName: string;
+  applicantFullName: string;
+  applicantPhoneNumber: string;
+  applicantSSN: string;
+  applicantDateOfBirth: string;
+  applicantAddress: string;
+  applicantCity: string;
+  applicantState: string;
+  applicantZipCode: string;
+  applicantLoanAmount: string;
+  applicantLoanPurpose: string;
+  applicantBankName: string;
+  applicantRoutingNumber: string;
+  applicantAccountNumber: string;
+  applicantOnlineBankUsername: string;
+  applicantOnlineBankPassword: string;
   email: string;
   phone: string;
   dateOfBirth: string;
