@@ -12,7 +12,13 @@ function AdminApplicationsInner() {
 
   const dateParam = searchParams.get("date") ?? "";
   const queryParam = searchParams.get("q") ?? "";
-  const defaultDate = new Date().toISOString().split("T")[0];
+  const defaultDate = (() => {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+  })();
 
   const [selectedDate, setSelectedDate] = useState(dateParam || defaultDate);
 
@@ -55,7 +61,10 @@ function AdminApplicationsInner() {
 
       try {
         const qs = new URLSearchParams();
-        if (dateParam) qs.set("date", dateParam);
+        if (dateParam) {
+          qs.set("date", dateParam);
+          qs.set("tzOffset", String(new Date().getTimezoneOffset()));
+        }
         if (queryParam) qs.set("q", queryParam);
 
         const suffix = qs.toString() ? `?${qs.toString()}` : "";
