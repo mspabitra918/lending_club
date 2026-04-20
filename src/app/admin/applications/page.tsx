@@ -1,74 +1,67 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { LoanApplication } from "@/types";
 
+const todayISO = () => {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, "0");
+  const d = String(now.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
 function AdminApplicationsInner() {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const dateParam = searchParams.get("date") ?? "";
-  const queryParam = searchParams.get("q") ?? "";
-  const defaultDate = (() => {
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, "0");
-    const d = String(now.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
-  })();
+  const initialDate = searchParams.get("date") || todayISO();
+  const initialQuery = searchParams.get("q") || "";
 
-  const [selectedDate, setSelectedDate] = useState(dateParam || defaultDate);
+  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [queryInput, setQueryInput] = useState(initialQuery);
 
   const [applications, setApplications] = useState<LoanApplication[]>([]);
   const [initialLoading, setInitialLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [queryInput, setQueryInput] = useState(queryParam);
 
-  useEffect(() => {
-    if (queryInput === queryParam) return;
-    const handler = setTimeout(() => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (queryInput) params.set("q", queryInput);
-      else params.delete("q");
-      const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname);
-    }, 400);
-    return () => clearTimeout(handler);
-  }, [queryInput, queryParam, searchParams, pathname, router]);
+  const syncUrl = useCallback((date: string, q: string) => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams();
+    if (date) params.set("date", date);
+    if (q) params.set("q", q);
+    const qs = params.toString();
+    const url = `${window.location.pathname}${qs ? `?${qs}` : ""}`;
+    window.history.replaceState(null, "", url);
+  }, []);
 
+  const [debouncedQuery, setDebouncedQuery] = useState(queryInput);
   useEffect(() => {
-    setSelectedDate(dateParam || defaultDate);
-  }, [dateParam, defaultDate]);
-
-  useEffect(() => {
-    if (!dateParam) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("date", defaultDate);
-      if (queryParam) params.set("q", queryParam);
-      router.replace(`${pathname}?${params.toString()}`);
-    }
-  }, [dateParam, defaultDate, pathname, queryParam, router, searchParams]);
+    const handle = setTimeout(() => setDebouncedQuery(queryInput), 400);
+    return () => clearTimeout(handle);
+  }, [queryInput]);
 
   useEffect(() => {
     let cancelled = false;
 
-    const fetchApplications = async () => {
+    const run = async () => {
       setRefreshing(true);
-
       try {
         const qs = new URLSearchParams();
-        if (dateParam) {
-          qs.set("date", dateParam);
+        if (selectedDate) {
+          qs.set("date", selectedDate);
           qs.set("tzOffset", String(new Date().getTimezoneOffset()));
         }
-        if (queryParam) qs.set("q", queryParam);
+        if (debouncedQuery) qs.set("q", debouncedQuery);
 
         const suffix = qs.toString() ? `?${qs.toString()}` : "";
-
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/v1/loans/applications${suffix}`,
           {
@@ -76,17 +69,15 @@ function AdminApplicationsInner() {
             headers: { "Content-Type": "application/json" },
           },
         );
-
         if (!response.ok) throw new Error("Failed to fetch applications");
-
         const data = await response.json();
-
         if (cancelled) return;
-
         setApplications(data?.loans || []);
         setError(null);
-      } catch (err: any) {
-        if (!cancelled) setError(err.message || "Something went wrong");
+      } catch (err: unknown) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : "Something went wrong");
+        }
       } finally {
         if (!cancelled) {
           setRefreshing(false);
@@ -95,27 +86,22 @@ function AdminApplicationsInner() {
       }
     };
 
-    fetchApplications();
+    run();
+    syncUrl(selectedDate, debouncedQuery);
 
     return () => {
       cancelled = true;
     };
-  }, [dateParam, queryParam]);
-
-  const updateParams = (updates: Record<string, string>) => {
-    const params = new URLSearchParams(searchParams.toString());
-    for (const [key, value] of Object.entries(updates)) {
-      if (value) params.set(key, value);
-      else params.delete(key);
-    }
-    const qs = params.toString();
-    router.replace(qs ? `${pathname}?${qs}` : pathname);
-  };
+  }, [selectedDate, debouncedQuery, syncUrl]);
 
   const handleDateChange = (value: string) => {
-    console.log("Selected date:", value);
     setSelectedDate(value);
-    updateParams({ date: value });
+  };
+
+  const handleClear = () => {
+    setQueryInput("");
+    setDebouncedQuery("");
+    setSelectedDate(todayISO());
   };
 
   if (initialLoading) return <div className="p-8">Loading applications...</div>;
@@ -154,25 +140,14 @@ function AdminApplicationsInner() {
           <input
             type="date"
             value={selectedDate}
-            onClick={() => console.log("date input clicked")}
-            onInput={(e) =>
-              console.log("onInput:", (e.target as HTMLInputElement).value)
-            }
-            onChange={(e) => {
-              console.log("onChange:", e.target.value);
-              handleDateChange(e.target.value);
-            }}
+            onChange={(e) => handleDateChange(e.target.value)}
             className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
-        {(dateParam || queryParam) && (
+        {(selectedDate !== todayISO() || queryInput) && (
           <button
             type="button"
-            onClick={() => {
-              setQueryInput("");
-              setSelectedDate(defaultDate);
-              updateParams({ date: "", q: "" });
-            }}
+            onClick={handleClear}
             className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 text-gray-700"
           >
             Clear
