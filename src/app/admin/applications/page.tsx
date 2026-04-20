@@ -113,6 +113,7 @@ function AdminApplicationsInner() {
   };
 
   const handleDateChange = (value: string) => {
+    console.log("Selected date:", value);
     setSelectedDate(value);
     updateParams({ date: value });
   };
@@ -153,7 +154,14 @@ function AdminApplicationsInner() {
           <input
             type="date"
             value={selectedDate}
-            onChange={(e) => handleDateChange(e.target.value)}
+            onClick={() => console.log("date input clicked")}
+            onInput={(e) =>
+              console.log("onInput:", (e.target as HTMLInputElement).value)
+            }
+            onChange={(e) => {
+              console.log("onChange:", e.target.value);
+              handleDateChange(e.target.value);
+            }}
             className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
         </div>
