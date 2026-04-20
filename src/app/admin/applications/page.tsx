@@ -72,6 +72,7 @@ function AdminApplicationsInner() {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/v1/loans/applications${suffix}`,
           {
+            method: "PUT ",
             headers: { "Content-Type": "application/json" },
           },
         );
