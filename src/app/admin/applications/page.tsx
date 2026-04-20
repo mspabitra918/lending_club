@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { LoanApplication } from "@/types";
@@ -107,7 +102,7 @@ function AdminApplicationsInner() {
   if (initialLoading) return <div className="p-8">Loading applications...</div>;
 
   return (
-    <div className="p-8">
+    <div className=" p-0 md:p-8">
       <div className="flex items-center gap-3 mb-6">
         <h1 className="text-2xl font-bold">Loan Applications</h1>
         {refreshing && (
